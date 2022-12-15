@@ -7,17 +7,15 @@ class Node {
   }
 
   depthFirstSearchRecursive(nodesVisited = new Set([this])) {
-    const values = [this.value];
+    let values = [this.value];
 
     for (let neighbor of this.adjacent) {
       if (!nodesVisited.has(neighbor)) {
         nodesVisited.add(neighbor);
-        values.concat(neighbor.depthFirstSearchRecursive(nodesVisited));
+        values = values.concat(neighbor.depthFirstSearchRecursive(nodesVisited));
       }
     }
-    //['b'].concat(C_node.call({a,b,c}))
-    // ['a'].concat(['b'].concat(['c']))
-    console.log('DFSRecurse returns:', values);
+
     return values;
   }
 }
@@ -126,13 +124,13 @@ class Graph {
     const nodesVisited = new Set([start]);
 
     while (nodeQueueOfTuples.length > 0) {
-      const currNodeTuple = nodeQueueOfTuples.shift();
+      const [currNode, currDepth] = nodeQueueOfTuples.shift();
 
-      if (currNodeTuple[0] === end) return currNodeTuple[1];
+      if (currNode === end) return currDepth;
 
-      for (let neighbor of currNodeTuple[0].adjacent) {
+      for (let neighbor of currNode.adjacent) {
         if (!nodesVisited.has(neighbor)) {
-          nodeQueueOfTuples.push([neighbor, currNodeTuple[1] + 1]);
+          nodeQueueOfTuples.push([neighbor, currDepth + 1]);
           nodesVisited.add(neighbor);
         }
       }
@@ -140,7 +138,6 @@ class Graph {
 
     return undefined;
   }
-
 
   // Alternative implementation, does not work yet!
 
@@ -178,7 +175,6 @@ class Graph {
   // at end
   // return isFinite(currBestPath)
   // incrementing and decrementing as you go.
-
 
 }
 

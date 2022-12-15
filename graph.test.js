@@ -190,12 +190,11 @@ describe("DFS", function () {
     graph.addEdge(W, T);
 
     let result = graph.depthFirstSearch(T);
-    // let result = T.depthFirstSearchRecursive();
-    // this doesn't even help. i don't get it. 
 
-    // expect.assertions(2);
-    // TODO: what does this mean???
-    // implemented differently, node method call.
+    expect.assertions(2);
+    // this means. at the end of this it() block
+    // at least two ().expect() assertions must have been made.
+    // i.e. did u even hit the if/else if blocks below??
 
     if (result[1] === "R") {
       expect(result[2] === "Q" || result[2] === "Y").toBe(true);
